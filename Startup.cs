@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 using trip.Models;
 
+using Swashbuckle.AspNetCore.Swagger;
+
 namespace trip
 {
     public class Startup
@@ -35,6 +37,8 @@ namespace trip
 
             services.AddTransient<Repository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Info { Title = "Trip", Version = "Version 1"}));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +57,8 @@ namespace trip
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Trip API v1"));
 
             app.UseMvc(routes =>
             {

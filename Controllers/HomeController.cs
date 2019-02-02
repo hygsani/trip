@@ -19,7 +19,7 @@ namespace trip.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<MTrip> Get()
+        public List<MTrip> Get()
         {
             return _repository.Get();
         }
