@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using trip.Models;
 
-namespace trip.Repository
+namespace trip.Models
 {
     public class Repository
     {
@@ -29,5 +29,29 @@ namespace trip.Repository
                 EndDate = new DateTime(2018, 9, 10)
             }
         };
+
+        public List<MTrip> Get()
+        {
+            return trips;
+        }
+        public MTrip GetById(int id)
+        {
+            return trips.First(t => t.Id == id);
+        }
+        public void Create(MTrip trip)
+        {
+            trips.Add(trip);
+        }
+
+        public void Update(MTrip trip)
+        {
+            trips.Remove(trips.First(t => t.Id == trip.Id));
+            Create(trip);
+        }
+
+        public void Delete(int id)
+        {
+            trips.Remove(trips.First(t => t.Id == id));
+        }
     }
 }

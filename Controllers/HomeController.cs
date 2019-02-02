@@ -11,10 +11,41 @@ namespace trip.Controllers
     [Route("api/[controller]")]
     public class HomeController : Controller
     {
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private Repository _repository;
+
+        public HomeController(Repository repository)
         {
-            return new string[] { "val1", "val2" };
+            _repository = repository;
+        }
+
+        [HttpGet]
+        public IEnumerable<MTrip> Get()
+        {
+            return _repository.Get();
+        }
+
+        [HttpGet("{id}")]
+        public MTrip GetById(int id)
+        {
+            return _repository.GetById(id);
+        }
+
+        [HttpPost]
+        public void Post([FromBody]MTrip value)
+        {
+            _repository.Create(value);
+        }
+
+        [HttpPut]
+        public void Put(int id, [FromBody]MTrip value)
+        {
+            _repository.Update(value);
+        }
+
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            _repository.Delete(id);
         }
     }
 }
